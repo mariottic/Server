@@ -1,0 +1,34 @@
+.title {
+  font-size: 10px;
+  color: green;
+  background-color: black;
+  padding: 20px;
+  border: 1px solid red;
+}
+
+div {
+  display: block
+
+}
+
+#chen {
+  font-size: 30px;
+}
+
+table, td, th {
+  border: 1px solid black;
+}
+
+th {
+  background-color: grey;
+  color: white;
+}
+td {
+  padding: 5px;
+  text-align: right;
+
+}
+table {
+  border-spacing: 0px;
+  border-collapse: collapse;
+}

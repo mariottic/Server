@@ -1,0 +1,14 @@
+table, th, td {
+  border: 1px solid black;
+}
+th, td {
+  white-space: nowrap;
+}
+table {
+  border-collapse: collapse;
+  overflow: auto;
+}
+th {
+  background-color: gray;
+  color: white
+}

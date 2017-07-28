@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head> <title>chen</title></head>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<body>
+  当前资产存放地点: <input id="search_input"></input><button id="search_btn" type="button">搜索</button>
+
+
+  <div id="content">
+  </div>
+  <script>
+  function render_table(e) {
+    $("#table").empty();
+    for (var i = 0; i < e.length; i++) {
+      var server = e[i];
+      var tr = $("<tr>");
+      $("#table").append(tr);
+      var td = $("<td>"+server.place+"</td>");
+      tr.append(td);
+
+      var td1 = $("<td>"+server.carbinet+"</td>");
+      tr.append(td1);
+      var td2 = $("<td>"+server.slot+"</td>");
+      tr.append(td2);
+      var date = $("<td>"+server.date+"</td>");
+      tr.append(date);
+      var serial = $("<td>"+server.serial+"</td>");
+      tr.append(serial);
+      var brandr = $("<td>"+server.brandr+"</td>");
+      tr.append(brandr);
+      var model = $("<td>"+server.model+"</td>");
+      tr.append(model);
+      var cpu = $("<td>"+server.cpu+"</td>");
+      tr.append(cpu);
+      var mem = $("<td>"+server.mem+"</td>");
+      tr.append(mem);
+      var disk = $("<td>"+server.disk+"</td>");
+      tr.append(disk);
+      var ip  = $("<td>"+server.ip+"</td>");
+      tr.append(ip);
+      var state  = $("<td>"+server.state+"</td>");
+      tr.append(state);
+      var login = $("<td>"+server.login+"</td>");
+      tr.append(login);
+      var service = $("<td>"+server.service+"</td>");
+      tr.append(service);
+      var os = $("<td>"+server.os+"</td>");
+      tr.append(os);
+      var id = $("<td>"+server.id+"</td>");
+      tr.append(id);
+      var id4 = $('<button >删除</button>');
+      tr.append(id4);
+  }
+
+$("button").each(function(index)
+{
+  $(this).attr("id",index)
+});
+
+for (var i = 1; i < e.length+1; i++) {
+  $("#"+i).click(function()
+{
+  if(confirm("是否删除该数据"))
+   var ids = $(this).attr("id");
+   $.ajax(
+     {
+       url:"http://localhost:8080/",
+       async:false,
+       success : function(e){e.deleteRow(i)}
+       })
+ })
+    }
+
+
+}
+  $('#search_btn').click(function(){
+    var text = $('#search_input').val()
+    //alert("click me!" + text);
+    $.ajax(
+      {
+        url:"http://localhost:8080/",
+        async:false,
+        success : function(e){
+          console.log(e);
+          var e = e.filter(function(server){
+            if(server == null || server.place == null) return false;
+            return server.place.indexOf(text) >= 0
+          })
+          render_table(e);
+
+        }
+      }
+    );
+  })
+
+
+
+
+$( document ).ready(function() {
+  $.ajax(
+    {
+      url:"http://localhost:8080/",
+      async:false,
+      success : function(e){
+        console.log(e);
+        e.sort(function(a,b){return a.id - b.id});
+        render_table(e);
+      }
+    }
+  );
+});
+
+
+  </script>
+  <table>
+    <thead>
+      <tr>
+        <th>当前资产存放地点</th>
+        <th >机柜</th><th>机位</th>
+        <th >购买日期</th><th>设备序列号</th>
+        <th >品牌</th><th>型号</th>
+        <th >cpu</th><th>mem</th>
+        <th >disk</th><th>ip</th>
+        <th >目前状态</th><th>是否能够登入</th>
+        <th >服务</th><th>os</th>
+        <th >id</th>
+      </tr>
+    </thead>
+    <tbody id="table">
+    </tbody>
+  </table>
+ </body>
+</html>

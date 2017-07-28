@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>陈文凡</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="title"> Some text for you to make tiny! </div>
+  <p class="title"> Some text for you to make normal size!</p>
+  <p > Some text for you to make super big!
+    <a href="../Array.txt" style="">数据</a>
+  </p>
+
+  <table>
+    <tr>
+      <th id='1'>1</th><th>2222</th>
+    </tr>
+    <tr>
+      <td>1</td><td>2222</td>
+    </tr>
+    <tr>
+      <td>333333</td><td>1</td>
+    </tr>
+  </table>
+  <ul>
+    <li>a</li>
+    <li>b</li>
+    <li>c</li>
+  </ul>
+  <form>
+    <p>
+      <input id="input"></input><button id="btn" type="button">输入id查看数据</button>
+
+      <select>
+        <option value="">shanghai</option>
+        <option value="">fuzhou</option>
+        <option value="">guangzhou</option>
+      </select>
+
+      <input type="radio" name="fruit"></input>a
+      <input type="radio" name="fruit"></input>b
+      <input type="radio" name="fruit"></input>c
+
+
+    </p>
+  </form>
+  <div id="content">
+  </div>
+  <script>
+  var myBtn = document.getElementById('btn');
+
+  //add event listener
+  myBtn.addEventListener('click', function(event) {
+    //TODO
+    var x = document.getElementById("input").value
+    console.log(x)
+    $.ajax(
+      {
+        url:"http://localhost:8080/"+x,
+        async:false,
+        success : function(e){
+          console.log(e);
+          document.getElementById("content").innerHTML=JSON.stringify(e);
+        }
+      }
+    );
+  });
+  </script>
+</body>
+
+</html>
