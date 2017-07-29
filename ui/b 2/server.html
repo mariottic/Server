@@ -47,33 +47,37 @@
       tr.append(service);
       var os = $("<td>"+server.os+"</td>");
       tr.append(os);
-      var id = $("<td>"+server.id+"</td>");
+      var id = $("<td class='1'>"+server.id+"</td>");
       tr.append(id);
-      var id4 = $('<button >删除</button>');
-      tr.append(id4);
-  }
-
-$("button").each(function(index)
-{
-  $(this).attr("id",index)
-});
-
-for (var i = 1; i < e.length+1; i++) {
-  $("#"+i).click(function()
-{
-  if(confirm("是否删除该数据"))
-   var ids = $(this).attr("id");
-   $.ajax(
-     {
-       url:"http://localhost:8080/",
-       async:false,
-       success : function(e){e.deleteRow(i)}
-       })
- })
-    }
-
-
+      var del= $("<td>"+"<button>"+"删除"+"</button>"+"</td>");
+      tr.append(del);
 }
+
+      $("button").click(function()
+{
+  var list =$("button").parent("1");
+  var c =list;
+  var dels= $("<td>"+c+"</td>");
+  tr.append(dels);
+  $.ajax(
+    {
+      url:"http://localhost:8080/",
+      async:false,
+      success : function(e){
+
+        alert("hi")}
+      })
+  $.ajax(
+    {
+      url:"http://localhost:8080/",
+      async:false,
+      success : function(e){
+
+      }
+      })
+})}
+
+
   $('#search_btn').click(function(){
     var text = $('#search_input').val()
     //alert("click me!" + text);
@@ -125,6 +129,7 @@ $( document ).ready(function() {
         <th >目前状态</th><th>是否能够登入</th>
         <th >服务</th><th>os</th>
         <th >id</th>
+
       </tr>
     </thead>
     <tbody id="table">
