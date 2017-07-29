@@ -47,7 +47,7 @@
       tr.append(service);
       var os = $("<td>"+server.os+"</td>");
       tr.append(os);
-      var id = $("<td class='1'>"+server.id+"</td>");
+      var id = $("<td class='id'>"+server.id+"</td>");
       tr.append(id);
       var del= $("<td>"+"<button>"+"删除"+"</button>"+"</td>");
       tr.append(del);
@@ -55,27 +55,23 @@
 
       $("button").click(function()
 {
-  var list =$("button").parent("1");
-  var c =list;
-  var dels= $("<td>"+c+"</td>");
-  tr.append(dels);
-  $.ajax(
-    {
-      url:"http://localhost:8080/",
-      async:false,
-      success : function(e){
 
-        alert("hi")}
-      })
+  var id =$(this)[0].parentNode.parentNode.querySelector(".id").innerHTML
+
+
+
   $.ajax(
     {
-      url:"http://localhost:8080/",
+      url:"http://localhost:8080/"+id,
       async:false,
+      method:"DELETE",
       success : function(e){
 
       }
       })
-})}
+
+}
+)}
 
 
   $('#search_btn').click(function(){
