@@ -39,8 +39,6 @@ function render_table(e) {
     var del= $("<td>"+"<button class='btn_delete'>"+"删除"+"</button>"+"</td>");
     tr.append(del);
   }
-
-
   $("btn_delete").click(function(){
     var id =$(this)[0].parentNode.parentNode.querySelector(".id").innerHTML
     $.ajax({
@@ -53,27 +51,6 @@ function render_table(e) {
     })
   })
 }
-
-$('#search_btn').click(function(){
-   var text = $('#search_input').val()
-
-   $.ajax({
-      url:"http://localhost:8080/",
-      async:false,
-      success : function(e){
-        console.log(e);
-        var e = e.filter(function(server){
-          if(server == null || server.place == null) return false;
-          return server.place.indexOf(text) >= 0
-        })
-        render_table(e);
-      }
-   })
-})
-
-
-
-
 $( document ).ready(function() {
   $.ajax(
     {
@@ -83,6 +60,21 @@ $( document ).ready(function() {
         console.log(e);
         e.sort(function(a,b){return a.id - b.id});
         render_table(e);
+        $('.search_btn').click(function(){
+           var text = $('#search_input').val()
+           $.ajax({
+              url:"http://localhost:8080/",
+              async:false,
+              success : function(e){
+                console.log(e);
+                var e = e.filter(function(server){
+                  if(server == null || server.place == null) return false;
+                  return server.place.indexOf(text) >= 0
+                })
+                render_table(e);
+              }
+           })
+        })
       }
     }
   )
